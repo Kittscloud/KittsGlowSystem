@@ -34,7 +34,7 @@ internal sealed class AdminGlowColourCommand : ICommand
             return false;
         }
 
-        Player.Get(sender).GetGlowData().GlowColour = colour.EnumColour;
+        player.GetGlowData().GlowColour = colour.EnumColour;
 
 #if !MONGODB
         DatabaseJson.SaveJsonCache();
