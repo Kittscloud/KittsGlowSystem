@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  
+	<!-- Project Definitions -->
+    <PropertyGroup>
+        <TargetFramework>net481</TargetFramework>
+
+        <OutputType>Library</OutputType>
+        <RootNamespace>KittsGlowSystem</RootNamespace>
+        <AssemblyName>KittsGlowSystem</AssemblyName>
+
+        <LangVersion>latest</LangVersion>
+        <PlatformTarget>x64</PlatformTarget>
+		<Configurations>Release;Release-MongoDB</Configurations>
+
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Platforms>x64</Platforms>
+		
+		<NoWarn>1591</NoWarn>
+    </PropertyGroup>
+
+	<!-- NuGet Definitions -->
+	<PropertyGroup>
+		<Title>Kitts Glow System</Title>
+		<Description>KittsGlowSystem is a tool that adds player glowing for SCP Secret Laboratory using LabAPI.</Description>
+		<Authors>Kittscloud</Authors>
+		<Version>0.1.0</Version>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageTags>badges;badge-system;badge-manager;badge-management;player-badges;custom-badges;roles;permissions;cosmetics;player-customization;SCP-SL;plugin;game-server;server-management;administration;moderation;gaming-tools;</PackageTags>
+		<RepositoryUrl>https://github.com/Kittscloud/KittsPlayerAnalyticsSystem</RepositoryUrl>
+		<Copyright>Copyright © Kittscloud 2026</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\LICENSE"> <Pack>True</Pack><PackagePath>\</PackagePath> </None>
+	  <None Include="..\README.md"> <Pack>True</Pack><PackagePath>\</PackagePath> </None>
+	  <None Include="..\CHANGELOG.md"> <Pack>True</Pack><PackagePath>\</PackagePath> </None>
+	</ItemGroup>
+
+	<!-- Release | x64 -->
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<DefineConstants>TRACE;</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-MongoDB|x64' ">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release-MongoDB\</OutputPath>
+		<AssemblyName>$(AssemblyName)-MongoDB</AssemblyName>
+		<DefineConstants>TRACE;MONGODB;</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+	<!-- Release | x64 | MongoDB -->
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-MongoDB|x64' ">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release-MongoDB\</OutputPath>
+		<AssemblyName>$(AssemblyName)-MongoDB</AssemblyName>
+		<DefineConstants>TRACE;MONGODB;</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	
+	<!-- NuGet Packages -->
+    <ItemGroup>
+		<PackageReference Include="Northwood.LabAPI" Version="1.1.7" />
+		<PackageReference Include="PolySharp" Version="1.16.0" PrivateAssets="all" />
+
+		<PackageReference Condition=" '$(Configuration)' == 'Release' " Include="Newtonsoft.Json" Version="13.0.4" />
+		<PackageReference Condition=" '$(Configuration)' == 'Release-MongoDB' " Include="MongoDB.Driver" Version="3.10.0" />
+	</ItemGroup>
+
+	<!-- References -->
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp" HintPath="..\..\$Resources\Local Admin Server\SCPSL_Data\Managed\Assembly-CSharp.dll" />
+		<Reference Include="Assembly-CSharp-firstpass" HintPath="..\..\$Resources\Local Admin Server\SCPSL_Data\Managed\Assembly-CSharp-firstpass.dll" />
+		<Reference Include="CommandSystem.Core" HintPath="..\..\$Resources\Local Admin Server\SCPSL_Data\Managed\CommandSystem.Core.dll" />
+		<Reference Include="Mirror" HintPath="..\..\$Resources\Local Admin Server\SCPSL_Data\Managed\Mirror.dll" />
+		<Reference Include="UnityEngine.CoreModule" HintPath="..\..\$Resources\Local Admin Server\SCPSL_Data\Managed\UnityEngine.CoreModule.dll" />
+    </ItemGroup>
+</Project>
