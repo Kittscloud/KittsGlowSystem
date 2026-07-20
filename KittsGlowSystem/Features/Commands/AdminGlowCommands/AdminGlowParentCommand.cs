@@ -13,9 +13,7 @@ namespace KittsGlowSystem.Features.Commands.AdminGlowCommands;
 internal sealed class AdminGlowParentCommand : ParentCommand
 {
     public override string Command => "aglow";
-
     public override string[] Aliases => ["ag"];
-
     public override string Description => "Manage another player's glow";
 
     public AdminGlowParentCommand()

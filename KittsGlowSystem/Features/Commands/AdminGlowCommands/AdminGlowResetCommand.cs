@@ -9,8 +9,7 @@ namespace KittsGlowSystem.Features.Commands.AdminGlowCommands;
 internal sealed class AdminGlowResetCommand : ICommand
 {
     public string Command => "reset";
-    public string[] Aliases => ["r"];
-
+    public string[] Aliases => [];
     public string Description => "Reset glow";
 
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
