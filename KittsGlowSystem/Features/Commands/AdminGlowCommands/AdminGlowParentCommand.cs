@@ -30,6 +30,7 @@ internal sealed class AdminGlowParentCommand : ParentCommand
         RegisterCommand(new AdminGlowToggleCommand());
         RegisterCommand(new AdminGlowRangeCommand());
         RegisterCommand(new AdminGlowToggleShadowCommand());
+        RegisterCommand(new AdminGlowResetCommand());
     }
 
     protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
@@ -65,8 +66,9 @@ internal sealed class AdminGlowParentCommand : ParentCommand
             $"aglow toggle {player.PlayerId}\n" +
             $"aglow toggleshadow {player.PlayerId}\n" +
             $"aglow colour {player.PlayerId} <colour>\n" +
-            $"aglow range {player.PlayerId} <range>\n" + "" +
-            $"aglow intensity {player.PlayerId} <range>";
+            $"aglow range {player.PlayerId} <range>\n" +
+            $"aglow intensity {player.PlayerId} <intensity>\n" +
+            $"aglow reset {player.PlayerId}";
 
         Log.Debug("AdminGlowParentCommand", Player.Get(sender)?.DisplayName);
         return true;

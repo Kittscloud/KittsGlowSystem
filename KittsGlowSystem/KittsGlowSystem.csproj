@@ -26,7 +26,7 @@
 		<Title>Kitts Glow System</Title>
 		<Description>KittsGlowSystem is a tool that adds player glowing for SCP Secret Laboratory using LabAPI.</Description>
 		<Authors>Kittscloud</Authors>
-		<Version>0.1.0</Version>
+		<Version>0.1.1</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -47,15 +47,6 @@
 		<Optimize>true</Optimize>
 		<OutputPath>bin\Release\</OutputPath>
 		<DefineConstants>TRACE;</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-MongoDB|x64' ">
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release-MongoDB\</OutputPath>
-		<AssemblyName>$(AssemblyName)-MongoDB</AssemblyName>
-		<DefineConstants>TRACE;MONGODB;</DefineConstants>
 		<ErrorReport>prompt</ErrorReport>
 		<WarningLevel>4</WarningLevel>
 	</PropertyGroup>
