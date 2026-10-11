@@ -20,5 +20,18 @@ public enum Colour : ushort
     BlueGreen = 16,
     Purple = 17,
     Clear = 18,
-    Rainbow = 19
+    Rainbow = 19,
+    Silver = 20,
+    Aqua = 21,
+    DeepPink = 22,
+    Tomato = 23,
+    Emerald = 24,
+    Mint = 25,
+    ArmyGreen = 26,
+    Pumpkin = 27,
+    Gold = 28,
+    Teal = 29,
+    LightRed = 30,
+    SilverBlue = 31,
+    PoliceBlue = 32
 }
