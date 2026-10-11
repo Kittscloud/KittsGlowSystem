@@ -15,6 +15,7 @@ internal sealed class PlayerGlowManager
 
     private readonly Dictionary<Player, LightSourceToy> _playerLights = [];
     private readonly Dictionary<Player, GlowData> _cachedGlowData = [];
+    private readonly Dictionary<Player, CoroutineHandle> _colourHandles = [];
 
     private CoroutineHandle _handle;
     private bool _running;
@@ -38,6 +39,12 @@ internal sealed class PlayerGlowManager
             return;
 
         _playerLights.Clear();
+
+        foreach (CoroutineHandle handle in _colourHandles.Values)
+            if (handle.IsRunning)
+                Timing.KillCoroutines(handle);
+
+        _colourHandles.Clear();
 
         Timing.KillCoroutines(_handle);
         _running = false;
@@ -89,7 +96,13 @@ internal sealed class PlayerGlowManager
 
             if (colourChanged || enabledChanged)
             {
-                Timing.RunCoroutine(FadeGlow(
+                if (_colourHandles.TryGetValue(player, out CoroutineHandle colourHandle) && colourHandle.IsRunning)
+                    Timing.KillCoroutines(colourHandle);
+
+                _colourHandles.Remove(player);
+
+                _colourHandles[player] = Timing.RunCoroutine(TransitionGlow(
+                    player,
                     light,
                     cached?.GlowEnabled ?? false,
                     data.GlowEnabled,
@@ -111,7 +124,8 @@ internal sealed class PlayerGlowManager
         }
     }
 
-    private IEnumerator<float> FadeGlow(
+    private IEnumerator<float> TransitionGlow(
+        Player player,
         LightSourceToy light,
         bool wasEnabled,
         bool isEnabled,
@@ -120,7 +134,6 @@ internal sealed class PlayerGlowManager
     )
     {
         Color start = wasEnabled ? ColourTypes.Get(oldColour).Colour : Color.clear;
-        Color end = isEnabled ? ColourTypes.Get(newColour).Colour : Color.clear;
 
         float duration = 0.5f;
         float elapsed = 0f;
@@ -128,15 +141,40 @@ internal sealed class PlayerGlowManager
         while (elapsed < duration)
         {
             float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
-            light.Color = Color.Lerp(start, end, t);
 
-            float delta = 0.02f;
-            elapsed += delta;
-            yield return delta;
+            Color target = isEnabled
+                ? ColourTypes.Get(newColour).Colour
+                : Color.clear;
+
+            light.Color = Color.Lerp(start, target, t);
+
+            elapsed += 0.02f;
+            yield return 0.02f;
         }
 
-        light.Color = end;
+        if (!isEnabled)
+        {
+            light.Color = Color.clear;
+            yield break;
+        }
 
-        Log.Debug("PlayerGlowManager.FadeGlow", $"{oldColour} {newColour}");
+        if (newColour != Colour.Rainbow)
+        {
+            light.Color = ColourTypes.Get(newColour).Colour;
+            Log.Debug("PlayerGlowManager.TransitionGlow", $"{oldColour} {newColour}");
+            yield break;
+        }
+
+        while (player != null)
+        {
+            GlowData data = player.GetGlowData();
+
+            if (!data.GlowEnabled || data.GlowColour != Colour.Rainbow)
+                yield break;
+
+            light.Color = ColourTypes.Get(Colour.Rainbow).Colour;
+
+            yield return Timing.WaitForOneFrame;
+        }
     }
 }

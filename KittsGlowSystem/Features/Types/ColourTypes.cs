@@ -9,16 +9,6 @@ namespace KittsGlowSystem.Features.Types;
 
 public static class ColourTypes
 {
-    public static readonly List<string> RainbowColours =
-    [
-        "pink", "magenta", "crimson", "tomato", "orange", "yellow",
-        "lime", "emerald", "light_green", "mint",
-        "blue_green", "aqua", "cyan",
-        "aqua", "blue_green", "mint", "green", "light_green",
-        "emerald", "lime", "yellow", "orange", "tomato",
-        "crimson", "magenta"
-    ];
-
     public static readonly IReadOnlyDictionary<Colour, ColourInfo> ServerColours = new Dictionary<Colour, ColourInfo>
     {
         [Colour.Pink] = new("Pink", "pink", Colour.Pink, new Color(1f, 0.588235f, 0.858824f)),

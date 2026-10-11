@@ -1,5 +1,8 @@
 # KittsGlowSystem Changelog
 
+## Version 0.1.5
+- Fixed `Rainbow` - Fixed a bug where rainbow glow would not work.
+
 ## Version 0.1.4
 - Changed `ColourTypes` - Added support for all colours, seperated into server, global and other.
 
