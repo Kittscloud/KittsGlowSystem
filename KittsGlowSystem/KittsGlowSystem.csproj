@@ -26,12 +26,12 @@
 		<Title>Kitts Glow System</Title>
 		<Description>KittsGlowSystem is a tool that adds player glowing for SCP Secret Laboratory using LabAPI.</Description>
 		<Authors>Kittscloud</Authors>
-		<Version>0.1.5</Version>
+		<Version>0.1.6</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageTags>badges;badge-system;badge-manager;badge-management;player-badges;custom-badges;roles;permissions;cosmetics;player-customization;SCP-SL;plugin;game-server;server-management;administration;moderation;gaming-tools;</PackageTags>
-		<RepositoryUrl>https://github.com/Kittscloud/KittsPlayerAnalyticsSystem</RepositoryUrl>
+		<RepositoryUrl>https://github.com/Kittscloud/KittsGlowSystem</RepositoryUrl>
 		<Copyright>Copyright © Kittscloud 2026</Copyright>
 	</PropertyGroup>
 

@@ -1,5 +1,8 @@
 # KittsGlowSystem Changelog
 
+## Version 0.1.6
+- Fixed `CoroutineHandle` - Fixed a bug where killing all coroutines would kill the plugin.
+
 ## Version 0.1.5
 - Fixed `Rainbow` - Fixed a bug where rainbow glow would not work.
 

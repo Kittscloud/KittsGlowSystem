@@ -18,6 +18,7 @@ internal sealed class PlayerGlowManager
     private readonly Dictionary<Player, CoroutineHandle> _colourHandles = [];
 
     private CoroutineHandle _handle;
+    private float _nextCheck;
     private bool _running;
 
     private const float UpdateIntervalSeconds = 1f;
@@ -28,6 +29,9 @@ internal sealed class PlayerGlowManager
             return;
 
         _running = true;
+
+        Timing.OnPreExecute += CheckCoroutine;
+
         _handle = Timing.RunCoroutine(Run());
 
         Log.Debug($"PlayerGlowManager.Start", "Started");
@@ -46,10 +50,28 @@ internal sealed class PlayerGlowManager
 
         _colourHandles.Clear();
 
-        Timing.KillCoroutines(_handle);
         _running = false;
 
+        Timing.OnPreExecute -= CheckCoroutine;
+
+        Timing.KillCoroutines(_handle);
+
         Log.Debug($"PlayerGlowManager.Stop", "Stopped");
+    }
+
+    private void CheckCoroutine()
+    {
+        if (!_running || Time.unscaledTime < _nextCheck)
+            return;
+
+        _nextCheck = Time.unscaledTime + 1f;
+
+        if (!Timing.IsRunning(_handle))
+        {
+            Log.Warn("PlayerGlowManager", "Coroutine stopped unexpectedly. Restarting.");
+
+            _handle = Timing.RunCoroutine(Run());
+        }
     }
 
     private IEnumerator<float> Run()
